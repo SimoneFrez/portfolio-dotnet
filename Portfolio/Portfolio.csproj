@@ -10,8 +10,4 @@
       <Compile Remove="Data\projetos.json.cs" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.14" />
-    </ItemGroup>
-
 </Project>

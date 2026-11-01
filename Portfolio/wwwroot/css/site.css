@@ -123,3 +123,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--destaque); outl
   font-size: .8rem;
   padding: .15rem .65rem;
 }
+
+/* ---------- Contato ---------- */
+.contatos {
+  display: grid;
+  gap: .75rem;
+  list-style: none;
+  padding: 0;
+}
