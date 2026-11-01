@@ -8,6 +8,12 @@ builder.Services.AddSingleton(
         Path.Combine(builder.Environment.ContentRootPath, "Data", "projetos.json")));
 
 var app = builder.Build();
+// Permite publicar o site em um subcaminho (ex.: /portfolio-dotnet no GitHub Pages)
+var caminhoBase = builder.Configuration["PathBase"];
+if (!string.IsNullOrEmpty(caminhoBase))
+{
+    app.UsePathBase(caminhoBase);
+}
 
 if (!app.Environment.IsDevelopment())
 {

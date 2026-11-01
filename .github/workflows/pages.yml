@@ -1,0 +1,73 @@
+name: Publicar site
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publicar a aplicação
+        run: dotnet publish Portfolio/Portfolio.csproj -c Release -o publicado
+
+      - name: Gerar as páginas em HTML
+        env:
+          PATH_BASE: /${{ github.event.repository.name }}
+        run: |
+          cd publicado
+          ASPNETCORE_URLS=http://localhost:5000 PathBase="$PATH_BASE" dotnet Portfolio.dll &
+          cd ..
+
+          for i in $(seq 1 30); do
+            curl -fs "http://localhost:5000$PATH_BASE/" > /dev/null && break
+            sleep 1
+          done
+
+          mkdir -p _site
+          baixar() {
+            mkdir -p "_site/$2"
+            curl -fsS "http://localhost:5000$PATH_BASE$1" -o "_site/$2/index.html"
+          }
+
+          baixar "/" "."
+          baixar "/Projetos" "Projetos"
+          baixar "/Sobre" "Sobre"
+          baixar "/Contato" "Contato"
+          for slug in $(jq -r '.[].slug' Portfolio/Data/projetos.json); do
+            baixar "/Projetos/$slug" "Projetos/$slug"
+          done
+
+          cp -r Portfolio/wwwroot/. _site/
+          curl -fsS "http://localhost:5000$PATH_BASE/Portfolio.styles.css" -o _site/Portfolio.styles.css
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publicar:
+    needs: gerar
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
