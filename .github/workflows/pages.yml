@@ -35,24 +35,17 @@ jobs:
           ASPNETCORE_URLS=http://localhost:5000 PathBase="$PATH_BASE" dotnet Portfolio.dll &
           cd ..
 
-          for i in $(seq 1 30); do
-            curl -fs "http://localhost:5000$PATH_BASE/" > /dev/null && break
-            sleep 1
-          done
-
-          mkdir -p _site
-          baixar() {
-            mkdir -p "_site/$2"
-            curl -fsS "http://localhost:5000$PATH_BASE$1" -o "_site/$2/index.html"
-          }
-
-          baixar "/" "."
-          baixar "/Projetos" "Projetos"
-          baixar "/Sobre" "Sobre"
-          baixar "/Contato" "Contato"
           for slug in $(jq -r '.[].slug' Portfolio/Data/projetos.json); do
             baixar "/Projetos/$slug" "Projetos/$slug"
           done
+
+          # baixa CSS/JS/imagens com hash que as páginas referenciam
+          grep -rhoE "(href|src)=\"$PATH_BASE/[^\"#?]+\.[a-zA-Z0-9]+(\?[^\"#]*)?\"" _site --include=index.html \
+              | sed -E 's/^(href|src)="//; s/"$//' | sort -u | while read -r url; do
+              caminho="${url#$PATH_BASE/}"; caminho="${caminho%%\?*}"
+              mkdir -p "_site/$(dirname "$caminho")"
+              curl -fsS "http://localhost:5000$url" -o "_site/$caminho" || echo "falhou: $url"
+            done
 
           cp -r Portfolio/wwwroot/. _site/
           curl -fsS "http://localhost:5000$PATH_BASE/Portfolio.styles.css" -o _site/Portfolio.styles.css
