@@ -1,0 +1,13 @@
+# Arquivos gerados pela compilação
+bin/
+obj/
+
+# Arquivos do Rider e do Visual Studio
+.idea/
+.vs/
+*.user
+
+# Banco de dados local (tem dados de visitantes)
+*.db
+*.db-shm
+*.db-wal

@@ -1,0 +1,14 @@
+@model Portfolio.Models.Projeto
+
+<article class="projeto-card">
+    <h2 class="projeto-card__titulo">
+        <a asp-page="/Projetos/Detalhe" asp-route-slug="@Model.Slug">@Model.Titulo</a>
+    </h2>
+    <p>@Model.Resumo</p>
+    <ul class="etiquetas">
+        @foreach (var tecnologia in Model.Tecnologias)
+        {
+            <li>@tecnologia</li>
+        }
+    </ul>
+</article>

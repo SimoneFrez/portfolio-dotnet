@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "agendador-horarios",
+    "titulo": "CRUD Agendador de Horários",
+    "resumo": "API REST para agendar serviços em pequenos negócios, como salões e clínicas. Cria, consulta, altera e cancela horários e impede dois agendamentos no mesmo horário.",
+    "linguagem": "Java",
+    "tecnologias": ["Spring Boot", "Spring Data JPA", "H2", "Lombok", "Maven"],
+    "linkGitHub": "https://github.com/SimoneFrez/CRUD-agendador-horarios"
+  },
+  {
+    "slug": "gestao-de-clientes",
+    "titulo": "Sistema de Gestão de Clientes",
+    "resumo": "API REST para cadastrar, listar e desativar clientes, com as regras de negócio no domínio, testes automatizados e integração contínua.",
+    "linguagem": "C#",
+    "tecnologias": ["ASP.NET Core", "Entity Framework Core", "SQLite", "xUnit", "Swagger", "GitHub Actions"],
+    "linkGitHub": "https://github.com/SimoneFrez/Sistema-de-Gestao-de-Clientes"
+  },
+  {
+    "slug": "sincro-estoque",
+    "titulo": "SincroEstoque",
+    "resumo": "Automação que processa produtos em lote, valida regras de negócio e mostra os indicadores de estoque em um dashboard.",
+    "linguagem": "Python",
+    "tecnologias": ["Pandas", "SQLite", "Streamlit", "python-dotenv", "Logging"],
+    "linkGitHub": "https://github.com/SimoneFrez/SincroEstoque.git"
+  }
+]

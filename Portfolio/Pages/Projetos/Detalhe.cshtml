@@ -1,0 +1,21 @@
+@page "/Projetos/{slug}"
+@model Portfolio.Pages.Projetos.DetalheModel
+@{ ViewData["Title"] = Model.Projeto.Titulo; }
+
+<h1>@Model.Projeto.Titulo</h1>
+<p>@Model.Projeto.Resumo</p>
+<p><strong>Linguagem:</strong> @Model.Projeto.Linguagem</p>
+
+<ul>
+    @foreach (var tecnologia in Model.Projeto.Tecnologias)
+    {
+        <li>@tecnologia</li>
+    }
+</ul>
+
+@if (Model.Projeto.LinkGitHub is not null)
+{
+    <p><a href="@Model.Projeto.LinkGitHub" target="_blank" rel="noopener">Ver no GitHub</a></p>
+}
+
+<p><a asp-page="/Projetos/Index">Voltar para os projetos</a></p>

@@ -1,0 +1,125 @@
+/* ---------- Identidade: troque só aqui para mudar o site todo ---------- */
+:root {
+  --fundo: #f1f4f8;
+  --superficie: #ffffff;
+  --texto: #14212f;
+  --suave: #55657a;
+  --linha: #d5dde6;
+  --destaque: #0a6c96;
+  --destaque-escuro: #085a7d;
+  --destaque-claro: #dceef6;
+  --raio: 8px;
+  --fonte-titulo: "Bricolage Grotesque", system-ui, sans-serif;
+  --fonte-texto: "IBM Plex Sans", system-ui, sans-serif;
+  --fonte-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* ---------- Base ---------- */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  line-height: 1.6;
+}
+
+body > .container { flex: 1; padding-block: 2.5rem; }
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+a { color: var(--destaque); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--destaque); outline-offset: 3px; }
+
+/* ---------- Topo ---------- */
+.topo { background: var(--superficie); border-bottom: 1px solid var(--linha); }
+
+.topo__conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 2rem;
+  padding-block: 1rem;
+}
+
+.topo__marca {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.topo__menu { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+
+.topo__menu a {
+  font-family: var(--fonte-mono);
+  font-size: .9rem;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.topo__menu a:hover { color: var(--destaque); }
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  border-top: 1px solid var(--linha);
+  padding-block: 1.25rem;
+  color: var(--suave);
+  font-family: var(--fonte-mono);
+  font-size: .85rem;
+}
+
+/* ---------- Botões (Bootstrap com a nossa cor) ---------- */
+.btn-primary {
+  --bs-btn-bg: var(--destaque);
+  --bs-btn-border-color: var(--destaque);
+  --bs-btn-hover-bg: var(--destaque-escuro);
+  --bs-btn-hover-border-color: var(--destaque-escuro);
+  --bs-btn-active-bg: var(--destaque-escuro);
+  --bs-btn-active-border-color: var(--destaque-escuro);
+}
+
+/* ---------- Lista de projetos ---------- */
+.projetos-grade {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.projeto-card {
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  padding: 1.5rem;
+}
+
+.projeto-card__titulo { font-size: 1.35rem; }
+.projeto-card__titulo a { color: var(--destaque); text-decoration: none; }
+.projeto-card__titulo a:hover { text-decoration: underline; }
+
+/* ---------- Etiquetas de tecnologias ---------- */
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.etiquetas li {
+  background: var(--destaque-claro);
+  color: var(--destaque);
+  border-radius: 999px;
+  font-family: var(--fonte-mono);
+  font-size: .8rem;
+  padding: .15rem .65rem;
+}
